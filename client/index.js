@@ -8,16 +8,19 @@ const rl = readline.createInterface({
 });
 
 // Connect to the server
-const client = net.createConnection({ host: "127.0.0.1", port: 5000 }, () => {
-  console.log("Connected to the server.");
-  rl.prompt();
-
-  // Send user input to the server
-  rl.on("line", (line) => {
-    client.write(line.trim());
+const client = net.createConnection(
+  { host: "172.17.4.125", port: 5000 },
+  () => {
+    console.log("Connected to the server.");
     rl.prompt();
-  });
-});
+
+    // Send user input to the server
+    rl.on("line", (line) => {
+      client.write(line.trim());
+      rl.prompt();
+    });
+  }
+);
 
 // Handle data received from the server
 client.on("data", (data) => {
